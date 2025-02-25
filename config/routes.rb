@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
+  mount API::Base, at: '/'
 
   post '/graphql', to: 'graphql#execute'
 
