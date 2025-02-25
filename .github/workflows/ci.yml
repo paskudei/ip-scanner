@@ -1,70 +1,85 @@
+---
 name: CI
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: [push]
 
 jobs:
-  test:
+  rubocop:
+    name: linters / Rubocop
     runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v1
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.0
+      - name: Run rubocop
+        uses: reviewdog/action-rubocop@v1
+        with:
+          rubocop_version: gemfile
+          rubocop_extensions: rubocop-rspec:gemfile
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-check
 
+  bundle_audit:
+    name: vulnerabilities / Bundle Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v1
+      - name: Bundler Audit
+        uses: andrewmcodes/bundler-audit-action@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  rspec:
+    name: tests / RSpec
+    runs-on: ubuntu-latest
     services:
+      redis:
+        image: redis:latest
+        ports:
+          - 6379:6379
       postgres:
-        image: postgres:13
+        image: postgres:10.8
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: rails_test
+          POSTGRES_PASSWORD: ""
+          POSTGRES_DB: postgres
         ports:
           - 5432:5432
         options: >-
+          --mount type=tmpfs,destination=/var/lib/postgresql/data
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
-      redis:
-        image: redis:6
-        ports:
-          - 6379:6379
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Ruby
+      - name: Check out code
+        uses: actions/checkout@v1
+      - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.3.0
-          bundler-cache: true
-
-      - name: Install dependencies
+      - name: Setup cache
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - name: Run bundle install
         run: |
-          sudo apt-get install -y libpq-dev
+          gem install bundler
+          bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-
-      - name: Set up database
+      - name: Run specs
         env:
-          DATABASE_USER: postgres
-          DATABASE_PASSWORD: postgres
-          DATABASE_HOST: localhost
-          DATABASE_PORT: 5432
-          DATABASE_NAME: servers_test
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPORT: ${{ job.services.postgres.ports[5432] }}
+          RAILS_ENV: test
         run: |
-          bundle exec rails db:create
-          bundle exec rails db:migrate
-
-      - name: Run Rubocop
-        run: bundle exec rubocop
-
-      - name: Run RSpec
-        run: bundle exec rspec
+          bin/rails db:create db:schema:load
+          bundle exec rspec
