@@ -1,0 +1,6 @@
+---
+en:
+  activerecord:
+    errors:
+      messages:
+        unable_to_destroy_record_with_dependencies: Unable to destroy record with dependencies

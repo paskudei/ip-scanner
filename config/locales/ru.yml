@@ -1,0 +1,6 @@
+---
+ru:
+  activerecord:
+    errors:
+      messages:
+        unable_to_destroy_record_with_dependencies: Невозможно с удалить запись с зависимостями

@@ -1,0 +1,26 @@
+# frozen_string_literal: true
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: <%= ENV['POSTGRES_HOST'] %>
+  timeout: 5000
+  pool: 5
+
+development:
+  <<: *default
+  database: servers_development
+
+test:
+  <<: *default
+  database: servers_test
+
+production:
+  <<: *default
+  database: servers_production
+
+staging:
+  <<: *default
+  database: servers_staging
