@@ -37,6 +37,10 @@ jobs:
     name: tests / RSpec
     runs-on: ubuntu-latest
     services:
+      redis:
+        image: redis:5.0.3
+        ports:
+          - 6379:6379
       postgres:
         image: postgres:10.8
         env:
