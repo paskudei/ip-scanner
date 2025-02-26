@@ -5,10 +5,13 @@ source 'https://rubygems.org'
 ruby '3.3.0'
 
 gem 'bootsnap', require: false
+gem 'grape'
+gem 'grape-entity'
 gem 'graphql'
 gem 'net-ping'
 gem 'pg'
 gem 'puma'
+gem 'rack-cors'
 gem 'rails'
 gem 'redis'
 gem 'sidekiq'

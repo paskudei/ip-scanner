@@ -41,6 +41,18 @@ module ServersTest
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    config.eager_load_paths << "#{config.root}/app"
+
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: %i[get post put delete options]
+      end
+    end
+
+    config.paths.add 'app/api', glob: '**/*.rb'
+    config.eager_load_paths << "#{config.root}/app"
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
