@@ -8,6 +8,7 @@ gem 'bootsnap', require: false
 gem 'grape'
 gem 'grape-entity'
 gem 'graphql'
+gem 'graphql-batch'
 gem 'net-ping'
 gem 'pg'
 gem 'puma'

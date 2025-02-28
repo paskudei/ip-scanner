@@ -7,7 +7,7 @@ module Resolvers
 
       argument :input,
                ::Inputs::Queries::Ips::CalculateStatisticInput,
-               description: 'Параметры запроса',
+               description: I18n.t('graphql.description.input'),
                required: true
 
       def resolve(input:)
@@ -15,7 +15,8 @@ module Resolvers
         result = calculate_statistic(ip, input)
         return error_message if result.total_checks.zero?
 
-        ip.attributes.merge!(statistic(result))
+        ip.define_singleton_method(:statistic) { result }
+        ip
       end
 
       private
@@ -30,19 +31,6 @@ module Resolvers
           time_from: input[:time_from],
           time_to: input[:time_to]
         )
-      end
-
-      def statistic(result)
-        {
-          statistic: {
-            avg_rtt: result.avg_rtt,
-            min_rtt: result.min_rtt,
-            max_rtt: result.max_rtt,
-            median_rtt: result.median_rtt,
-            std_dev: result.std_dev,
-            packet_loss: result.packet_loss
-          }
-        }
       end
 
       def error_message

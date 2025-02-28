@@ -7,12 +7,18 @@ module Types
 
       field :address,
             String,
-            description: 'IPv4 / IPv6 address',
+            description: I18n.t('graphql.description.ip.address'),
             null: false
 
       field :enabled,
             Boolean,
-            description: 'Сбор статистики включен?',
+            description: I18n.t('graphql.description.ip.enabled'),
+            null: false
+
+      field :ping_results,
+            [::Types::PingResults::PingResultType],
+            description: I18n.t('graphql.description.ip.ping_results'),
+            extensions: [::Extensions::BatchLoadedAssociation],
             null: false
     end
   end

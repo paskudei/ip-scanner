@@ -8,10 +8,12 @@ module Inputs
 
         argument :address,
                  String,
+                 description: I18n.t('graphql.description.ip.address'),
                  required: true
 
         argument :enabled,
                  Boolean,
+                 description: I18n.t('graphql.description.ip.address'),
                  required: true
       end
     end

@@ -8,32 +8,32 @@ module Types
 
         field :avg_rtt,
               Float,
-              description: 'Среднее RTT (время отклика)',
+              description: I18n.t('graphql.description.ip.statistics.avg_rtt'),
               null: true
 
         field :min_rtt,
               Float,
-              description: 'Минимальное RTT (время отклика)',
+              description: I18n.t('graphql.description.ip.statistics.min_rtt'),
               null: true
 
         field :max_rtt,
               Float,
-              description: 'Максимальное RTT (время отклика)',
+              description: I18n.t('graphql.description.ip.statistics.max_rtt'),
               null: true
 
         field :median_rtt,
               Float,
-              description: 'Медианное RTT (время отклика)',
+              description: I18n.t('graphql.description.ip.statistics.median_rtt'),
               null: true
 
         field :std_dev,
               Float,
-              description: 'Среднеквадратичное отклонение замеров RTT (время отклика)',
+              description: I18n.t('graphql.description.ip.statistics.std_dev'),
               null: true
 
         field :packet_loss,
               Float,
-              description: 'Процент потерянных пакетов ICMP до указанного адреса',
+              description: I18n.t('graphql.description.ip.statistics.packet_loss'),
               null: false
       end
     end

@@ -8,6 +8,7 @@ module Inputs
 
         argument :id,
                  ID,
+                 description: I18n.t('graphql.description.id'),
                  required: true
       end
     end

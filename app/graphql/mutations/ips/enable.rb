@@ -3,12 +3,11 @@
 module Mutations
   module Ips
     class Enable < Mutations::BaseMutation
-      description 'Включить сбор статистики IP'
-
       type ::Types::Ips::IpType
 
       argument :input,
                ::Inputs::Mutations::Ips::EnableInput,
+               description: I18n.t('graphql.description.input'),
                required: true
 
       def resolve(input:)
