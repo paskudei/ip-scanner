@@ -1,0 +1,26 @@
+---
+en:
+  graphql:
+    description:
+      id: 'ID'
+      created_at: 'Created at'
+      updated_at: 'Updated at'
+      input: 'Request parameters'
+
+      ip:
+        address: 'IPv4 / IPv6 address'
+        enabled: 'Is statistics collection enabled?'
+        ping_results: 'Ping results for the IP address'
+        statistic: 'IP address statistics'
+        statistics:
+          avg_rtt: 'Average RTT (round-trip time)'
+          min_rtt: 'Minimum RTT (round-trip time)'
+          max_rtt: 'Maximum RTT (round-trip time)'
+          median_rtt: 'Median RTT (round-trip time)'
+          std_dev: 'Standard deviation of RTT measurements (round-trip time)'
+          packet_loss: 'Percentage of lost ICMP packets to the specified address'
+          time_from: 'Statistics calculation date and time (From)'
+          time_to: 'Statistics calculation date and time (To)'
+
+      ping_result:
+        rtt: 'RTT (round-trip time)'

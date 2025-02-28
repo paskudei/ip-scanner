@@ -7,6 +7,7 @@ module Mutations
 
       argument :input,
                ::Inputs::Mutations::Ips::DestroyInput,
+               description: I18n.t('graphql.description.input'),
                required: true
 
       private

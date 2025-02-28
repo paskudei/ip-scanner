@@ -17,6 +17,13 @@ GraphQL as API.
            enabled
            createdAt
            updatedAt
+           pingResults {
+               id
+               rtt
+               createdAt
+               updatedAt
+               __typename
+           }
            __typename
        }
    }
@@ -42,6 +49,13 @@ GraphQL as API.
            enabled
            createdAt
            updatedAt
+           pingResults {
+               id
+               rtt
+               createdAt
+               updatedAt
+               __typename
+           }
            __typename
        }
    }
@@ -67,6 +81,13 @@ GraphQL as API.
            enabled
            createdAt
            updatedAt
+           pingResults {
+               id
+               rtt
+               createdAt
+               updatedAt
+               __typename
+           }
            __typename
        }
    }
@@ -93,6 +114,13 @@ GraphQL as API.
            enabled
            createdAt
            updatedAt
+           pingResults {
+               id
+               rtt
+               createdAt
+               updatedAt
+               __typename
+           }
            __typename
        }
    }
@@ -121,6 +149,17 @@ GraphQL as API.
                 medianRtt
                 stdDev
                 packetLoss
+            }
+            address
+            enabled
+            createdAt
+            updatedAt
+            pingResults {
+                id
+                rtt
+                createdAt
+                updatedAt
+                __typename
             }
             __typename
         }

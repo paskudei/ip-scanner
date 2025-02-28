@@ -7,7 +7,7 @@ module Types
 
       field :statistic,
             ::Types::Ips::IpStatistics::RttType,
-            description: 'Статистика для IP адреса',
+            description: I18n.t('graphql.description.ip.statistic'),
             null: false
     end
   end

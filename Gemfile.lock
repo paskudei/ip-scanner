@@ -131,6 +131,9 @@ GEM
       base64
       fiber-storage
       logger
+    graphql-batch (0.6.0)
+      graphql (>= 1.12.18, < 3)
+      promise.rb (~> 0.7.2)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     io-console (0.8.0)
@@ -193,6 +196,7 @@ GEM
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
+    promise.rb (0.7.4)
     pry (0.15.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -345,6 +349,7 @@ DEPENDENCIES
   grape
   grape-entity
   graphql
+  graphql-batch
   net-ping
   pg
   pry-rails
